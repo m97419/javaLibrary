@@ -1,0 +1,5 @@
+[DEBUG] 2023-12-25 15:15:21,696 registration.controller.StudentServlet doPost - Debug logging
+[INFO] 2023-12-25 15:15:21,701 registration.controller.StudentServlet doPost - Info logging
+[WARN] 2023-12-25 15:15:21,701 registration.controller.StudentServlet doPost - Warning logging
+[ERROR] 2023-12-25 15:15:21,702 registration.controller.StudentServlet doPost - Error logging
+[FATAL] 2023-12-25 15:15:21,702 registration.controller.StudentServlet doPost - Fatal logging
