@@ -47,20 +47,48 @@ public class BookDao {
 			stmt.close();
 		}
 		 catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 		
 		return dataList;
 	}
 	
+	public int deleteBook(int id) throws ClassNotFoundException {
+		String DELETE_BOOK_SQL = "DELETE FROM book WHERE id = ?";
+		
+		int result = 0;
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		try {
+		Connection connection = DriverManager.getConnection(CONNECTION_STR,"root","1234");
+		
+		if (connection != null) {
+			
+            System.out.println("Connected to the database students");
+        }
+		              
+		PreparedStatement preparedStatement = connection.prepareStatement(DELETE_BOOK_SQL);
+				
+		preparedStatement.setInt(1,id);
+		
+		System.out.println(preparedStatement);
+		result = preparedStatement.executeUpdate();
+				
+		}
+		catch(SQLException e) {
+			
+			e.printStackTrace();
+			
+		}
+		return result;
+		
+	}
+	
 	public int addBook(Books book) throws ClassNotFoundException{
 		
-	     String INSERT_STUDENT_SQL = "INSERT INTO book(name,author,description)"+
-	     " VALUES (?,?,?);";
-		
-	    /// String CONNECTION_STR = "jdbc:mysql://localhost:3306/students?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-	     
+	     String INSERT_BOOK_SQL = "INSERT INTO book(name,author,description)"+
+	     " VALUES (?,?,?);";	     
 
 			int result = 0;
 			
@@ -74,7 +102,7 @@ public class BookDao {
 	            System.out.println("Connected to the database students");
 	        }
 			              
-			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENT_SQL);
+			PreparedStatement preparedStatement = connection.prepareStatement(INSERT_BOOK_SQL);
 					
 			preparedStatement.setString(1,book.getName());
 			preparedStatement.setString(2,book.getAuthor());

@@ -7,7 +7,18 @@ public class User {
 	private String address;
 	private String phoneNum;
 	private int status;
-
+	private boolean haveLaons;
+	
+	public User() {};
+	public User(int id, String userName, String address, String phoneNum, boolean haveLaons) {
+		super();
+		this.id = id;
+		this.userName = userName;
+		this.address = address;
+		this.phoneNum = phoneNum;
+		this.haveLaons = haveLaons;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -44,5 +55,12 @@ public class User {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public boolean isHaveLaons() {
+		return haveLaons;
+	}
+	public void setHaveLaons(boolean haveLaons) {
+		this.haveLaons = haveLaons;
+	}
+	
 }
 

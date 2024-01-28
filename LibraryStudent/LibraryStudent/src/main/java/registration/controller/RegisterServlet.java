@@ -61,7 +61,6 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/LibraryStudent/Registration.jsp");
-		System.out.println("LoginSucess path->"+ requestDispatcher);
 		if(requestDispatcher !=null )
             requestDispatcher.forward(request, response);
 	}

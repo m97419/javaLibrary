@@ -7,15 +7,15 @@
 <title>library</title>
 </head>
 <body>
-	<form action="/LibraryStudent/Registration.jsp">
-		<input type="submit" name="Regist" value="regist">
-	</form>
-	<form method="post" action="http://localhost:8050/LibraryStudent/MessageServlet">
+	<form method="post" action="/LibraryStudent/MessageServlet">
 		<input type="submit" value="To Messages">
 	</form>
-	<form method="post" action="http://localhost:8050/LibraryStudent/GetBooksServlet">
+	<form method="post" action="/LibraryStudent/GetBooksServlet">
 		<input type="hidden" name="status" value="0">
 		<input type="submit" value="Books">
+	</form>
+	<form method="post" action="/LibraryStudent/GetAllUsers">
+		<input type="submit" value="Users">
 	</form>
 </body>
 </html>

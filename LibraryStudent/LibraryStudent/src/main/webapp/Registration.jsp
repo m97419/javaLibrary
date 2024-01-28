@@ -7,7 +7,7 @@
 <title>library</title>
 </head>
 <body>
-<form method="post" action="http://localhost:8050/LibraryStudent/registration/controller/StudentServlet">
+<form method="post" action="registration/controller/StudentServlet">
 		<table 
 			style="width:70%;background-color: skyblue;margin-top:200px;margin-left:100px;margin-right:200px;">
 
@@ -46,6 +46,9 @@
 				<td><input type="submit" name="Reg" value="Sign in"></td>
 			</tr>
 		</table>
+	</form>
+	<form method="post" action="GetAllUsers">
+		<input type="submit" value="Back">
 	</form>
 </body>
 </html>

@@ -53,24 +53,23 @@ public class StudentServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		String address = request.getParameter("address");
 		String phoneNum = request.getParameter("phone");
-		String status = request.getParameter("status");
+		int status = Integer.parseInt(request.getParameter("status"));
 		
 		User user = new User();
 		
 		user.setUserName(userName);
 		user.setPassword(password);
 		user.setAddress(address);
-		user.setPhoneNum(status);
+		user.setPhoneNum(phoneNum);
+		user.setStatus(status);
 			
 		try {
 				
 			userDao.registerUser(user);
 		} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("../../http://localhost:8050/LibraryStudent/WorkerHomePage.jsp");
-		System.out.println("LoginSucess path->"+ requestDispatcher);
+			e.printStackTrace();
+		}
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("../../GetAllUsers");
 		if(requestDispatcher !=null )
             requestDispatcher.forward(request, response);
 	}

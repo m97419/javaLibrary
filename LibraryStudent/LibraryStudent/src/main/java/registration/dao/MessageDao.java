@@ -40,8 +40,7 @@ public class MessageDao {
 			stmt.close();
 		}
 		 catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			 e.printStackTrace();
 		}
 		
 		return dataList;

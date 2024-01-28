@@ -8,29 +8,26 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import registration.dao.BookDao;
 import registration.dao.UserDao;
-import registration.model.User;
 
 import java.io.IOException;
 
 /**
- * Servlet implementation class DeleteBookServlet
+ * Servlet implementation class DeleteUserServlet
  */
-public class DeleteBookServlet extends HttpServlet {
+public class DeleteUserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BookDao bookDao = new BookDao();
+	private UserDao userDao = new UserDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteBookServlet() {
+    public DeleteUserServlet() {
         super();
-        // TODO Auto-generated constructor stub
-    }
+        }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -39,13 +36,13 @@ public class DeleteBookServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-			
+		
 		try {
-			bookDao.deleteBook(id);
+			userDao.deleteUser(id);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/GetBooksServlet");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/GetAllUsers");
 		if(requestDispatcher !=null )
             requestDispatcher.forward(request, response);
 	}

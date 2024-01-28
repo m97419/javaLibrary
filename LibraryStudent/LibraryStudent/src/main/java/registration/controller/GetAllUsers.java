@@ -2,27 +2,26 @@ package registration.controller;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import registration.dao.UserDao;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-import registration.dao.UserDao;
-import registration.model.User;
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class GetAllUsers
  */
-public class LoginServlet extends HttpServlet {
+public class GetAllUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDao userDao = new UserDao();
-       
+     private UserDao userDao = new UserDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public GetAllUsers() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,30 +38,17 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		User user=new User();
+		List dataList = new ArrayList();
 		try {
-			user = userDao.login(userName, password);
-		}
+			dataList = userDao.getAllUsers();
+		} 
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
 		}
-		request.setAttribute("userDetails", user);
-		RequestDispatcher requestDispatcher;
-		if(user != null) {		
-			if(user.getStatus()==0) {
-				requestDispatcher = request.getRequestDispatcher("../../WorkerHomePage.jsp");
-			}
-			else {
-				requestDispatcher = request.getRequestDispatcher("../../UserHomePage.jsp");
-			}
-			if(requestDispatcher !=null )
-	            requestDispatcher.forward(request, response);
-		}
+		request.setAttribute("usersData", dataList);
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("UsersManage.jsp");
+		if(requestDispatcher !=null )
+            requestDispatcher.forward(request, response);
 	}
+
 }
