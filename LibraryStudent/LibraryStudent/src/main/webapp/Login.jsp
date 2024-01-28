@@ -29,7 +29,7 @@
 				<td><input type="submit" name="Login" value="login"></td>
 			</tr>
 		</table>
-		<div style="visibility:hidden;margin-left:100px;" id="wrong">User name or password are wrong</div>
+		<!-- <div style="visibility:hidden;margin-left:100px;" id="wrong">User name or password are wrong</div> -->
 	</form>
 </body>
 </html>
