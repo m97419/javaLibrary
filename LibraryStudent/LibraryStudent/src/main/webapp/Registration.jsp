@@ -47,8 +47,5 @@
 			</tr>
 		</table>
 	</form>
-	<form method="post" action="GetAllUsers">
-		<input type="submit" value="Back">
-	</form>
 </body>
 </html>

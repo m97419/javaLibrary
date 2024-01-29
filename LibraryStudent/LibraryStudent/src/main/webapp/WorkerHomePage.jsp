@@ -12,6 +12,7 @@
 	</form>
 	<form method="post" action="/LibraryStudent/GetBooksServlet">
 		<input type="hidden" name="status" value="0">
+		<input type="hidden" name="find" value="">
 		<input type="submit" value="Books">
 	</form>
 	<form method="post" action="/LibraryStudent/GetAllUsers">

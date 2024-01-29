@@ -15,10 +15,10 @@ public class BookDao {
 	
 	public String CONNECTION_STR = "jdbc:mysql://localhost:3306/students?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
-	public List getListOfBooks() throws ClassNotFoundException{
+	public List getListOfBooks(String find) throws ClassNotFoundException{
 		List dataList = new ArrayList();
 		
-		String SQL = "SELECT b.* FROM book b LEFT JOIN loan l ON b.id = l.bookId WHERE l.bookId IS NULL";
+		String SQL = "SELECT b.* FROM book b LEFT JOIN loan l ON b.id = l.bookId WHERE l.bookId IS NULL AND name like '%?%'";
     	java.sql.Statement stmt;
 							
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -30,9 +30,11 @@ public class BookDao {
 				
 					System.out.println("Connected to the database students");
 	        	}
-				stmt = connection.createStatement();
-		       
-				ResultSet rs = ((java.sql.Statement) stmt).executeQuery(SQL);
+				
+				PreparedStatement preparedStatement = connection.prepareStatement(SQL);
+				
+				preparedStatement.setString(1,find);
+				ResultSet rs = preparedStatement.executeQuery();
 			
 			while (rs.next()) {
 			
@@ -44,7 +46,6 @@ public class BookDao {
 			}
 			
 			rs.close();
-			stmt.close();
 		}
 		 catch (SQLException e) {
 			 e.printStackTrace();
@@ -108,7 +109,6 @@ public class BookDao {
 			preparedStatement.setString(2,book.getAuthor());
 			preparedStatement.setString(3,book.getDescription());
 			
-			System.out.println(preparedStatement);
 			result = preparedStatement.executeUpdate();
 					
 			}
@@ -120,5 +120,79 @@ public class BookDao {
 			return result;
 					
 		}
+	
+	public List getAllLaonBooks(int id) throws ClassNotFoundException{
+		String GET_LAON_SQL = "SELECT b.name, b.author, b.description, b.id FROM students.loan l JOIN students.book b ON l.bookId = b.id where l.userId = ?;";
+		
+		int result = 0;
+		List dataList = new ArrayList();
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		try {
+			Connection connection = DriverManager.getConnection(CONNECTION_STR,"root","1234");
+			
+			if (connection != null) {
+				
+	            System.out.println("Connected to the database students");
+	        }
+			              
+			PreparedStatement preparedStatement = connection.prepareStatement(GET_LAON_SQL);
+					
+			preparedStatement.setInt(1,id);
+			ResultSet rs = preparedStatement.executeQuery();
+		
+		while (rs.next()) {
+		
+		    dataList.add(rs.getString("name"));
+		    dataList.add(rs.getString("author"));	
+		    dataList.add(rs.getString("description"));	
+		    dataList.add(rs.getString("id"));
+		}
+		
+		rs.close();
+	}
+	 catch (SQLException e) {
+		 e.printStackTrace();
+	}
+	
+	return dataList;
+	}
+	
+	public List getHistory(int id) throws ClassNotFoundException{
+		String GET_HISTORY_SQL = "SELECT b.id, b.name, b.author, b.description FROM students.loan l JOIN students.book b ON l.bookId = b.id where l.isReturned = true;";
+		java.sql.Statement stmt;
+		int result = 0;
+		List dataList = new ArrayList();
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		
+		try {
+			Connection connection = DriverManager.getConnection(CONNECTION_STR,"root","1234");
+			
+			if (connection != null) {
+				
+	            System.out.println("Connected to the database students");
+	        }
+			stmt = connection.createStatement();
+
+			ResultSet rs = ((java.sql.Statement) stmt).executeQuery(GET_HISTORY_SQL);
+		
+		while (rs.next()) {
+		
+		    dataList.add(rs.getString("name"));
+		    dataList.add(rs.getString("author"));	
+		    dataList.add(rs.getString("description"));	
+		    dataList.add(rs.getString("id"));
+		}
+		
+		rs.close();
+	}
+	 catch (SQLException e) {
+		 e.printStackTrace();
+	}
+	
+	return dataList;
+	}
 	
 }

@@ -24,14 +24,12 @@ public class GetBooksServlet extends HttpServlet {
      */
     public GetBooksServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -40,9 +38,10 @@ public class GetBooksServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List dataList = new ArrayList();
-		int status = (int)(request.getParameter("status").charAt(0))-48;
+		int status = Integer.parseInt(request.getParameter("status"));
+		String find = request.getParameter("find");
 		try {
-			dataList = bookDao.getListOfBooks();
+			dataList = bookDao.getListOfBooks(find);
 		} 
 		catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -53,7 +52,7 @@ public class GetBooksServlet extends HttpServlet {
 			requestDispatcher = request.getRequestDispatcher("BooksWorker.jsp");
 		}
 		else {
-			requestDispatcher = request.getRequestDispatcher("BookUser.jsp");
+			requestDispatcher = request.getRequestDispatcher("LaonBooks.jsp");
 		}
 		
 		if(requestDispatcher !=null )

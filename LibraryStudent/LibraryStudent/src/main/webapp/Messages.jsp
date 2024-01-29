@@ -23,9 +23,5 @@
 		</tr>
 		<% } %>
 	</table>
-	<form method="post" action="ReturnServlet">
-		<input type="hidden" name="path" value="/WorkerHomePage.jsp">
-		<input type="submit" value="Back">
-	</form>
 </body>
 </html>

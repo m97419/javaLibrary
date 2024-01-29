@@ -6,22 +6,22 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import registration.dao.UserDao;
-import registration.model.User;
+import registration.dao.BookDao;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class GetLaonBooksServlet
  */
-public class RegisterServlet extends HttpServlet {
+public class GetLaonBooksServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDao userDao = new UserDao();
-	
+	private BookDao bookDao = new BookDao(); 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServlet() {
+    public GetLaonBooksServlet() {
         super();
     }
 
@@ -36,28 +36,19 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		String address = request.getParameter("address");
-		String phoneNum = request.getParameter("phone");
-		int status = Integer.parseInt(request.getParameter("status"));
+		List dataList = new ArrayList();
+		int id = Integer.parseInt(request.getParameter("id"));
 		
-		User user = new User();
-		
-		user.setUserName(userName);
-		user.setPassword(password);
-		user.setAddress(address);
-		user.setPhoneNum(phoneNum);
-		user.setStatus(status);
-			
-		try {	
-			userDao.registerUser(user);
+		try {
+			dataList = bookDao.getHistory(id);
 		} 
 		catch (ClassNotFoundException e) {
-				e.printStackTrace();
+			e.printStackTrace();
 		}
+		request.setAttribute("laonData", dataList);
+		RequestDispatcher requestDispatcher;
+		requestDispatcher = request.getRequestDispatcher("History.jsp");
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/LibraryStudent/Registration.jsp");
 		if(requestDispatcher !=null )
             requestDispatcher.forward(request, response);
 	}

@@ -39,9 +39,5 @@
 	<form action="Registration.jsp">
 		<input type="submit" name="addUser" value="addUser">
 	</form>
-	<form method="post" action="ReturnServlet">
-		<input type="hidden" name="path" value="/WorkerHomePage.jsp">
-		<input type="submit" value="Back">
-	</form>
 </body>
 </html>

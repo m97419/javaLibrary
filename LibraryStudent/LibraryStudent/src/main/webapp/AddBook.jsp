@@ -34,9 +34,5 @@
 			</tr>
 		</table>
 	</form>
-	<form method="post" action="GetBooksServlet">
-		<input type="hidden" name="status" value="0">
-		<input type="submit" value="Back">
-	</form>
 </body>
 </html>

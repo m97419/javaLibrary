@@ -6,22 +6,23 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import registration.dao.MessageDao;
 import registration.dao.UserDao;
+import registration.model.Message;
 import registration.model.User;
 
 import java.io.IOException;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class AddMessageServlet
  */
-public class RegisterServlet extends HttpServlet {
+public class AddMessageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private UserDao userDao = new UserDao();
-	
+	private MessageDao messageDao = new MessageDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterServlet() {
+    public AddMessageServlet() {
         super();
     }
 
@@ -36,28 +37,23 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userName = request.getParameter("userName");
-		String password = request.getParameter("password");
-		String address = request.getParameter("address");
-		String phoneNum = request.getParameter("phone");
-		int status = Integer.parseInt(request.getParameter("status"));
+		String body = request.getParameter("txt");
+		System.out.println("------"+request.getParameter("userId"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		
-		User user = new User();
+		Message message = new Message();
 		
-		user.setUserName(userName);
-		user.setPassword(password);
-		user.setAddress(address);
-		user.setPhoneNum(phoneNum);
-		user.setStatus(status);
-			
+		message.setBody(body);
+		message.setUserId(userId);
+		
 		try {	
-			userDao.registerUser(user);
+			messageDao.addMessage(message);
 		} 
 		catch (ClassNotFoundException e) {
 				e.printStackTrace();
 		}
 		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/LibraryStudent/Registration.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("AddMessage.jsp");
 		if(requestDispatcher !=null )
             requestDispatcher.forward(request, response);
 	}
